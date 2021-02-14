@@ -1,0 +1,2 @@
+# GoEchoGraphqlTailwind
+Projeto experimental
