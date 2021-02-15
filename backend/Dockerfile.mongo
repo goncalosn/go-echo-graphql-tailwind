@@ -1,0 +1,5 @@
+FROM alpine
+
+RUN apk add --update mongodb-tools netcat-openbsd
+COPY ./scripts/ /scripts
+RUN chmod +x /scripts/init.sh

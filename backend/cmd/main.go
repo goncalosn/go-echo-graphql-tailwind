@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/goncalosn/go-echo-graphql-tailwind/internal/db"
+	"github.com/goncalosn/go-echo-graphql-tailwind/pkg/db"
 	"github.com/goncalosn/go-echo-graphql-tailwind/pkg/handlers"
 	"github.com/labstack/echo/v4"
 )

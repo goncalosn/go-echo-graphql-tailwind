@@ -1,8 +1,0 @@
-version: "3"
-
-services:
-  database:
-    image: "mongo:latest"
-    container_name: "my-mongo-container"
-    ports:
-      - "27100:27017"
