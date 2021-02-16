@@ -5,7 +5,7 @@ import (
 )
 
 type Desert struct {
-	mgm.DefaultModel `bson:",inline"`
+	mgm.IDField `bson:",inline"`
 
 	Name  string `bson:"name"`
 	Price string `bson:"price"`
