@@ -1,17 +1,17 @@
 [
-    {
-      "name": "Mouse",
-      "price": "4$",
-      "image": ""
-    },
-    {
-      "name": "Gelado",
-      "price": "3$",
-      "image": ""
-    },
-    {
-      "name": "Pão de ló",
-      "price": "8$",
-      "image": ""
-    }
-  ]
+  {
+    "name": "Happy meal",
+    "price": "24$",
+    "image": ""
+  },
+  {
+    "name": "Batatas fritas",
+    "price": "4$",
+    "image": ""
+  },
+  {
+    "name": "Tosta mista",
+    "price": "8$",
+    "image": ""
+  }
+]
