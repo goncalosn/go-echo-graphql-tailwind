@@ -18,18 +18,14 @@ func GetFoods(c echo.Context) error {
 	err := mgm.Coll(&Food{}).SimpleFind(&results, bson.M{})
 
 	if err != nil {
-		if len(results) == 0 {
-			log.Println(err)
-			return c.JSON(http.StatusNotFound, nil)
-		}
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
 	return c.JSON(http.StatusOK, results)
 }
 
-//GetFoodById returns the food with the id from the parameter
-func GetFoodById(c echo.Context) error {
+//GetFoodByID returns the food with the id from the parameter
+func GetFoodByID(c echo.Context) error {
 	//Get document's collection
 	food := &Food{}
 	coll := mgm.Coll(food)
@@ -39,9 +35,10 @@ func GetFoodById(c echo.Context) error {
 
 	if err != nil {
 		if food == nil {
-			log.Println(err)
 			return c.JSON(http.StatusNotFound, nil)
 		}
+
+		log.Println(err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 

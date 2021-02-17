@@ -12,13 +12,18 @@ func GetHandlers(e *echo.Echo) {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
+	//foods
 	e.GET("/foods", GetFoods)
-	e.GET("/food/:id", GetFoodById)
+	e.GET("/food/:id", GetFoodByID)
+	//drinks
 	e.GET("/drinks", GetDrinks)
-	e.GET("/drinks/:id", GetDrinkById)
+	e.GET("/drinks/:id", GetDrinkByID)
+	//deserts
 	e.GET("/deserts", GetDeserts)
-	e.GET("/desert/:id", GetDesertById)
-	// 	e.GET("/orders", GetOrders)
-	// 	e.POST("/order/:food&:drink&:desert", GostOrder)
-	// 	e.DELETE("/order/:id", GeleteOrder)
+	e.GET("/desert/:id", GetDesertByID)
+	//orders
+	e.GET("/orders", GetOrders)
+	e.GET("/order/:id", GetOrderByID)
+	e.POST("/order/new", PostOrder)
+	e.DELETE("/order/:id", DeleteOrder)
 }

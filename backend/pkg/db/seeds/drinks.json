@@ -1,17 +1,17 @@
 [
-    {
-      "name": "Coca-cola",
-      "price": "2$",
-      "image": ""
-    },
-    {
-      "name": "Cerveja",
-      "price": "4$",
-      "image": ""
-    },
-    {
-      "name": "Água",
-      "price": "1$",
-      "image": ""
-    }
-  ]
+  {
+    "name": "Coca-cola",
+    "price": 2,
+    "image": ""
+  },
+  {
+    "name": "Cerveja",
+    "price": 4,
+    "image": ""
+  },
+  {
+    "name": "Água",
+    "price": 1,
+    "image": ""
+  }
+]

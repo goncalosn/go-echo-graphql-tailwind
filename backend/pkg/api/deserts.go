@@ -18,18 +18,14 @@ func GetDeserts(c echo.Context) error {
 	err := mgm.Coll(&Desert{}).SimpleFind(&results, bson.M{})
 
 	if err != nil {
-		if len(results) == 0 {
-			log.Println(err)
-			return c.JSON(http.StatusNotFound, nil)
-		}
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
 	return c.JSON(http.StatusOK, results)
 }
 
-//GetDesertById returns the desert with the id from the parameter
-func GetDesertById(c echo.Context) error {
+//GetDesertByID returns the desert with the id from the parameter
+func GetDesertByID(c echo.Context) error {
 	//Get document's collection
 	desert := &Desert{}
 	coll := mgm.Coll(desert)
@@ -39,9 +35,10 @@ func GetDesertById(c echo.Context) error {
 
 	if err != nil {
 		if desert == nil {
-			log.Println(err)
 			return c.JSON(http.StatusNotFound, nil)
 		}
+
+		log.Println(err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 

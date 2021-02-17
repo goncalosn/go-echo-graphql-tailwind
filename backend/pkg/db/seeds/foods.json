@@ -1,17 +1,17 @@
 [
   {
     "name": "Happy meal",
-    "price": "24$",
+    "price": 24,
     "image": ""
   },
   {
     "name": "Batatas fritas",
-    "price": "4$",
+    "price": 4,
     "image": ""
   },
   {
     "name": "Tosta mista",
-    "price": "8$",
+    "price": 8,
     "image": ""
   }
 ]

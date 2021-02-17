@@ -18,18 +18,14 @@ func GetDrinks(c echo.Context) error {
 	err := mgm.Coll(&Drink{}).SimpleFind(&results, bson.M{})
 
 	if err != nil {
-		if len(results) == 0 {
-			log.Println(err)
-			return c.JSON(http.StatusNotFound, nil)
-		}
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
 	return c.JSON(http.StatusOK, results)
 }
 
-//GetDrinkById returns the drink with the id from the parameter
-func GetDrinkById(c echo.Context) error {
+//GetDrinkByID returns the drink with the id from the parameter
+func GetDrinkByID(c echo.Context) error {
 	//Get document's collection
 	drink := &Drink{}
 	coll := mgm.Coll(drink)
@@ -39,9 +35,10 @@ func GetDrinkById(c echo.Context) error {
 
 	if err != nil {
 		if drink == nil {
-			log.Println(err)
 			return c.JSON(http.StatusNotFound, nil)
 		}
+
+		log.Println(err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 

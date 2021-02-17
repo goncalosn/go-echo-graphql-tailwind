@@ -1,17 +1,17 @@
 [
   {
     "name": "Mouse",
-    "price": "4$",
+    "price": 4,
     "image": ""
   },
   {
     "name": "Gelado",
-    "price": "3$",
+    "price": 3,
     "image": ""
   },
   {
     "name": "Pão de ló",
-    "price": "8$",
+    "price": 8,
     "image": ""
   }
 ]
