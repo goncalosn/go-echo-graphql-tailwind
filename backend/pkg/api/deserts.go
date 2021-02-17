@@ -34,12 +34,8 @@ func GetDesertByID(c echo.Context) error {
 	err := coll.FindByID(c.Param("id"), desert)
 
 	if err != nil {
-		if desert == nil {
-			return c.JSON(http.StatusNotFound, nil)
-		}
-
 		log.Println(err)
-		return c.JSON(http.StatusInternalServerError, nil)
+		return c.JSON(http.StatusNotFound, nil)
 	}
 
 	return c.JSON(http.StatusOK, desert)

@@ -35,12 +35,8 @@ func GetOrderByID(c echo.Context) error {
 	err := coll.FindByID(c.Param("id"), order)
 
 	if err != nil {
-		if order == nil {
-			return c.JSON(http.StatusNotFound, nil)
-		}
-
 		log.Println(err)
-		return c.JSON(http.StatusInternalServerError, nil)
+		return c.JSON(http.StatusNotFound, nil)
 	}
 
 	return c.JSON(http.StatusOK, order)
@@ -72,12 +68,8 @@ func PostOrder(c echo.Context) error {
 		err = coll.FindByID(id, food)
 
 		if err != nil {
-			if food == nil {
-				return c.JSON(http.StatusNotFound, nil)
-			}
-
 			log.Println(err)
-			return c.JSON(http.StatusInternalServerError, nil)
+			return c.JSON(http.StatusNotFound, nil)
 		}
 
 		price += food.Price * quantity.(float64)
@@ -95,12 +87,8 @@ func PostOrder(c echo.Context) error {
 		err = coll.FindByID(id, drink)
 
 		if err != nil {
-			if drink == nil {
-				return c.JSON(http.StatusNotFound, nil)
-			}
-
 			log.Println(err)
-			return c.JSON(http.StatusInternalServerError, nil)
+			return c.JSON(http.StatusNotFound, nil)
 		}
 
 		price += drink.Price * quantity.(float64)
@@ -118,12 +106,8 @@ func PostOrder(c echo.Context) error {
 		err = coll.FindByID(id, desert)
 
 		if err != nil {
-			if desert == nil {
-				return c.JSON(http.StatusNotFound, nil)
-			}
-
 			log.Println(err)
-			return c.JSON(http.StatusInternalServerError, nil)
+			return c.JSON(http.StatusNotFound, nil)
 		}
 
 		price += desert.Price * quantity.(float64)
@@ -135,10 +119,107 @@ func PostOrder(c echo.Context) error {
 	// Make sure pass the model by reference.
 	err = mgm.Coll(order).Create(newOrder)
 
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	return c.JSON(http.StatusCreated, nil)
+}
+
+//UpdateOrder updates the order with the id from the parameter
+func UpdateOrder(c echo.Context) error {
+	var price float64 = 0
+
+	//Get order's collection
+	order := &Order{}
+	coll := mgm.Coll(order)
+
+	// Find and decode doc to the order model.
+	err := coll.FindByID(c.Param("id"), order)
+
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusNotFound, nil)
+	}
+
+	decodeJSON := json.NewDecoder(c.Request().Body)
+	err = decodeJSON.Decode(order)
+
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	for i := 0; i < len(order.Foods); i++ {
+		id := order.Foods[i]["id"]
+		quantity := order.Foods[i]["quantity"]
+
+		//Get foods collection
+		food := &Food{}
+		coll := mgm.Coll(food)
+
+		// Find and decode doc to the food model.
+		err = coll.FindByID(id, food)
+
+		if err != nil {
+			log.Println(err)
+			return c.JSON(http.StatusNotFound, nil)
+		}
+
+		price += food.Price * quantity.(float64)
+	}
+
+	for i := 0; i < len(order.Drinks); i++ {
+		id := order.Drinks[i]["id"]
+		quantity := order.Drinks[i]["quantity"]
+
+		//Get drinks collection
+		drink := &Drink{}
+		coll := mgm.Coll(drink)
+
+		// Find and decode doc to the drink model.
+		err = coll.FindByID(id, drink)
+
+		if err != nil {
+			log.Println(err)
+			return c.JSON(http.StatusNotFound, nil)
+		}
+
+		price += drink.Price * quantity.(float64)
+	}
+
+	for i := 0; i < len(order.Deserts); i++ {
+		id := order.Deserts[i]["id"]
+		quantity := order.Deserts[i]["quantity"]
+
+		//Get deserts collection
+		desert := &Desert{}
+		coll := mgm.Coll(desert)
+
+		// Find and decode doc to the desert model.
+		err = coll.FindByID(id, desert)
+
+		if err != nil {
+			log.Println(err)
+			return c.JSON(http.StatusNotFound, nil)
+		}
+
+		price += desert.Price * quantity.(float64)
+	}
+
+	order.Price = price
+	err = mgm.Coll(order).Update(order)
+
+	if err != nil {
+		log.Println(err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
 	return c.JSON(http.StatusOK, nil)
 }
 
-//DeleteOrder returns 201 if order deleted else returns 500
+//DeleteOrder the order with the id from the parameter
 func DeleteOrder(c echo.Context) error {
 	//Get order's collection
 	order := &Order{}
@@ -148,13 +229,16 @@ func DeleteOrder(c echo.Context) error {
 	err := coll.FindByID(c.Param("id"), order)
 
 	if err != nil {
-		if order == nil {
-			return c.JSON(http.StatusNotFound, nil)
-		}
+		log.Println(err)
+		return c.JSON(http.StatusNotFound, nil)
+	}
 
+	err = mgm.Coll(order).Delete(order)
+
+	if err != nil {
 		log.Println(err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	return c.JSON(http.StatusOK, order)
+	return c.JSON(http.StatusOK, nil)
 }

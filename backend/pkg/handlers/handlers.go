@@ -25,5 +25,6 @@ func GetHandlers(e *echo.Echo) {
 	e.GET("/orders", GetOrders)
 	e.GET("/order/:id", GetOrderByID)
 	e.POST("/order/new", PostOrder)
+	e.PUT("/order/:id", UpdateOrder)
 	e.DELETE("/order/:id", DeleteOrder)
 }
