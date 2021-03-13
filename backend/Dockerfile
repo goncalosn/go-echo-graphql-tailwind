@@ -1,9 +1,24 @@
 FROM golang:1.14
 WORKDIR /go/src/app
-COPY . .
-RUN go run ./cmd/main.go
-EXPOSE 1323
+RUN echo "asdf"
+RUN echo $GOPATH
+RUN ls
+COPY go.mod .
+COPY go.sum .
 
+RUN go mod download
+COPY . .
+#compilar e criar binário
+RUN go install -v ./...
+
+
+FROM alpine
+RUN echo "asdf"
+RUN echo $GOPATH
+RUN ls
+# COPY --from=0 
+# CMD ["./cmd/main.go"]
+EXPOSE 1323
 
 # 1. fazes o FROM para ir buscar a imagem de golang
 # 2. depois copias os ficheiros locais para esta imagem
