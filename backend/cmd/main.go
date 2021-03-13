@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	. "github.com/goncalosn/go-echo-graphql-tailwind/pkg/handlers"
 	"github.com/kamva/mgm/v3"
@@ -11,7 +12,7 @@ import (
 )
 
 func init() {
-	err := mgm.SetDefaultConfig(nil, "menu", options.Client().ApplyURI("mongodb://localhost:27017"))
+	err := mgm.SetDefaultConfig(nil, "menu", options.Client().ApplyURI("mongodb://mongo:"+os.Getenv("MONGO_PORT")))
 
 	if err != nil {
 		log.Fatal(err)

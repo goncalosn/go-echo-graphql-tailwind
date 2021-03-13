@@ -21,7 +21,7 @@ services:
   dev:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: dev
     ports:
       - "1323:1323"
