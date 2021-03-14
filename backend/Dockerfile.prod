@@ -4,25 +4,17 @@ ENV GO111MODULE=on \
     CGO_ENABLED=0
 
 WORKDIR /build
-
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
-
 COPY . .
 
+RUN go mod download
+
 #compilar e criar binário
-RUN go build -o main ./cmd/main.go
+RUN go build -o bin ./cmd/main.go
 
-WORKDIR /dist
+FROM scratch
+COPY --from=0 /build/bin /bin
 
-RUN cp /build/main .
-
-FROM alpine
-COPY --from=0 /dist/main /
-# COPY --from=0 
-# CMD ["./cmd/main.go"]
-ENTRYPOINT ["/main"]
+ENTRYPOINT ["/bin"]
 EXPOSE 1323
 
 # 1. fazes o FROM para ir buscar a imagem de golang
