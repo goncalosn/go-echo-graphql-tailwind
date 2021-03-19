@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	err := mgm.SetDefaultConfig(nil, "menu", options.Client().ApplyURI("mongodb://mongo:"+os.Getenv("MONGO_PORT")))
+	err := mgm.SetDefaultConfig(nil, "menu", options.Client().ApplyURI("mongodb://mongodb:"+os.Getenv("MONGO_PORT")))
 
 	if err != nil {
 		log.Fatal(err)

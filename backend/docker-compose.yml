@@ -5,8 +5,6 @@ services:
     image: "mongo:3.4"
     ports:
       - "27017:27017"
-    volumes:
-      - ./pkg/db/data:/data
 
   mongo-seed:
     build:
@@ -21,7 +19,7 @@ services:
   dev:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     image: dev
     ports:
       - "1323:1323"

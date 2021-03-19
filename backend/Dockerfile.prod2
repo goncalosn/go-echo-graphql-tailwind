@@ -11,10 +11,10 @@ RUN go mod download
 #compilar e criar binário
 RUN go build -o bin ./cmd/main.go
 
-FROM alpine
-COPY --from=0 /build/bin /gobin
+FROM busybox
+COPY --from=0 /build/mainbin /mainbin
 
-ENTRYPOINT ["/gobin"]
+ENTRYPOINT ["/mainbin"]
 EXPOSE 1323
 
 # 1. fazes o FROM para ir buscar a imagem de golang
